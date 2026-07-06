@@ -6,44 +6,42 @@
 
 
 class Paddle {
-
 public:
-
     enum class Player { PLAYER_1, PLAYER_2 };
 
     /**
      * Constructor
      */
-    Paddle(const sf::Vector2f& window_size,  const Player& player);
+    Paddle(const sf::Vector2f &window_size, const Player &player);
 
     /**
      * Getter
      */
     sf::Vector2f get_position() const;
+
     sf::RectangleShape get_shape() const;
+
     sf::Color get_color() const;
+
     Player get_player() const;
 
     /**
      * Methods
      */
     void move_up();
-    void move_down();
-    void update_position();
 
+    void move_down();
+
+    void update_position();
 
 private:
     /**
      * Attributes
      */
-    sf::RectangleShape rect_shape { sf::Vector2f{10.0F, 100.0F} };
-    sf::Vector2f position {0, 0};
-    sf::Color color {sf::Color::White};
+    sf::RectangleShape rect_shape{sf::Vector2f{10.0F, 100.0F}};
+    sf::Vector2f position{0, 0};
+    sf::Color color{sf::Color::White};
     Player player;
-
-
-
-
 };
 
 

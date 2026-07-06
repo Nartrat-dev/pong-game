@@ -7,16 +7,15 @@
 #include "SFML/System/Vector2.hpp"
 
 class Game {
-
 public:
     /**
      * Attributes
      */
-    sf::RenderWindow window {sf::VideoMode( { WINDOW_SIZE } ), "PONG" };
+    sf::RenderWindow window{sf::VideoMode({WINDOW_SIZE}), "PONG"};
     /** Game Objects */
-    Paddle paddle_player_1 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_1};
-    Paddle paddle_player_2 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_2};
-    Ball ball { sf::Vector2f(WINDOW_SIZE) };
+    Paddle paddle_player_1{sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_1};
+    Paddle paddle_player_2{sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_2};
+    Ball ball{sf::Vector2f(WINDOW_SIZE)};
 
     /**
      * Constructor
@@ -26,11 +25,17 @@ public:
     /**
      * Methods
      */
+    // Game Loop
     void game_loop();
-    void check_player_input();
-    void check_wall_collision();
-    void check_paddle_collision();
 
+    // Checks player inputs and moves paddles depending on input
+    void check_player_input();
+
+    // Checks for wall collision and executes corresponding logic
+    void check_wall_collision();
+
+    // Checks collision with a player paddle and reverts direction on hit
+    void check_paddle_collision();
 };
 
 

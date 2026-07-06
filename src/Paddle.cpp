@@ -1,9 +1,8 @@
 #include "Paddle.h"
 
-Paddle::Paddle(const sf::Vector2f& window_size, const Player& player) : player{player} {
-
+Paddle::Paddle(const sf::Vector2f &window_size, const Player &player) : player{player} {
     if (player == Player::PLAYER_1) {
-        position.x = 10 ; // Position on left side
+        position.x = 10; // Position on left side
         color = sf::Color::Blue;
     }
     if (player == Player::PLAYER_2) {
@@ -19,12 +18,15 @@ Paddle::Paddle(const sf::Vector2f& window_size, const Player& player) : player{p
 sf::Vector2f Paddle::get_position() const {
     return position;
 }
+
 sf::RectangleShape Paddle::get_shape() const {
     return rect_shape;
 }
+
 sf::Color Paddle::get_color() const {
     return color;
 }
+
 Paddle::Player Paddle::get_player() const {
     return player;
 }
@@ -33,9 +35,11 @@ Paddle::Player Paddle::get_player() const {
 void Paddle::move_up() {
     position.y -= 20.0F;
 }
+
 void Paddle::move_down() {
     position.y += 20.0F;
 }
+
 void Paddle::update_position() {
     rect_shape.setPosition(position);
 }

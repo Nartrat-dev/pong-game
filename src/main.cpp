@@ -5,8 +5,6 @@
 #include "Paddle.h"
 
 int main() {
-
-	Game game;
-	game.game_loop();
-
+    Game game;
+    game.game_loop();
 }
