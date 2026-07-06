@@ -13,8 +13,6 @@ Paddle::Paddle(const sf::Vector2f window_size, const Player player) : player{pla
     position.y = (window_size.y / 2) - (size.y / 2); // y Starting position: vertical center
 };
 
-
-
 sf::Vector2f Paddle::get_position() const {
     return position;
 }
@@ -28,3 +26,9 @@ Paddle::Player Paddle::get_player() const {
     return player;
 }
 
+void Paddle::move_up() {
+    position.y--;
+}
+void Paddle::move_down() {
+    position.y++;
+}

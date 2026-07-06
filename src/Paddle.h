@@ -23,6 +23,12 @@ public:
     sf::Color get_color() const;
     Player get_player() const;
 
+    /**
+     * Methods
+     */
+    void move_up();
+    void move_down();
+
 
 private:
     /**

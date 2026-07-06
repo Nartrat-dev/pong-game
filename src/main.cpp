@@ -6,11 +6,11 @@ int main() {
 
 	constexpr sf::Vector2u WINDOW_SIZE {1920, 1080};
 
-	sf::RenderWindow window( sf::VideoMode( { WINDOW_SIZE } ), "SFML works!" );
+	sf::RenderWindow window( sf::VideoMode( { WINDOW_SIZE } ), "PONG" );
+	window.setFramerateLimit(60);
 
-
-	const Paddle paddle_player_1 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_1};
-	const Paddle paddle_player_2 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_2};
+	Paddle paddle_player_1 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_1};
+	Paddle paddle_player_2 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_2};
 
 	sf::RectangleShape rect1 {paddle_player_1.get_size()};
 	rect1.setPosition(paddle_player_1.get_position());
@@ -27,12 +27,24 @@ int main() {
 		while ( const std::optional event = window.pollEvent() ) {
 
 			// Close window: exit
-			if ( event->is<sf::Event::Closed>() )
-				window.close();
+			if ( event->is<sf::Event::Closed>() ) { window.close(); }
 		}
+
+		// On Key Pressed
+		// Player 1 movement
+		if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ) { paddle_player_1.move_up(); }
+		if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ) { paddle_player_1.move_down(); }
+
+		// Player 2 movement
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) ) { paddle_player_2.move_up(); }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) ) { paddle_player_2.move_down(); }
 
 		// Clear Screen
 		window.clear();
+
+		// Update Positions
+		rect1.setPosition(paddle_player_1.get_position());
+		rect2.setPosition(paddle_player_2.get_position());
 
 		// Draw
 		window.draw(rect1);
