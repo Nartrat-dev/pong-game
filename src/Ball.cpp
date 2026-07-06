@@ -1,5 +1,7 @@
 #include "Ball.h"
 
+#include "config.h"
+
 Ball::Ball(const sf::Vector2f& window_size) : position{ window_size / 2.0F } {
     circle_shape.setFillColor(color);
     circle_shape.setPosition(position);
@@ -14,11 +16,15 @@ void Ball::update_position() {
     circle_shape.setPosition(position);
 }
 
-void Ball::change_x_direction() {
+void Ball::revert_x_velocity() {
     velocity.x *= -1.0F;
 }
-void Ball::change_y_direction() {
+void Ball::revert_y_velocity() {
     velocity.y *= -1.0F;
+}
+
+void Ball::reset_position() {
+    position = sf::Vector2f(WINDOW_SIZE) / 2.0F;
 }
 
 

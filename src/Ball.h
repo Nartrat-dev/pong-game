@@ -16,8 +16,9 @@ public:
      */
     void move();
     void update_position();
-    void change_x_direction();
-    void change_y_direction();
+    void revert_x_velocity();
+    void revert_y_velocity();
+    void reset_position();
 
     /**
      * Getter

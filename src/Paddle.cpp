@@ -31,10 +31,10 @@ Paddle::Player Paddle::get_player() const {
 
 
 void Paddle::move_up() {
-    position.y--;
+    position.y -= 20.0F;
 }
 void Paddle::move_down() {
-    position.y++;
+    position.y += 20.0F;
 }
 void Paddle::update_position() {
     rect_shape.setPosition(position);

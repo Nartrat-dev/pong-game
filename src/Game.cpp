@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game() {
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(FPS);
 }
 
 void Game::game_loop() {
@@ -20,7 +20,8 @@ void Game::game_loop() {
         check_player_input();
 
         // Check collisions
-        check_ball_collision();
+        check_wall_collision();
+        check_paddle_collision();
 
         // Clear Screen
         window.clear();
@@ -51,13 +52,26 @@ void Game::check_player_input() {
     if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) ) { paddle_player_2.move_down(); }
 }
 
-void Game::check_ball_collision() {
+void Game::check_wall_collision() {
     const auto &bounds { ball.get_shape().getGlobalBounds() };
     const auto &window_size { window.getSize() };
 
     // left and right border collision
-    if (bounds.position.x < 0.F || bounds.position.x > window_size.x) { ball.change_x_direction(); }
+    if (bounds.position.x < 0.F || bounds.position.x + ball.get_shape().getRadius() * 2 > window_size.x) {
+        ball.reset_position();
+    }
 
     // upper and lower border collision
-    if (bounds.position.y < 0.F || bounds.position.y > window_size.y) { ball.change_y_direction(); }
+    if (bounds.position.y < 0.F || bounds.position.y > window_size.y - ball.get_shape().getRadius() * 2) {
+        ball.revert_y_velocity();
+    }
+}
+
+void Game::check_paddle_collision() {
+    const auto &ball_bounds { ball.get_shape().getGlobalBounds() };
+    const auto &player1_bounds { paddle_player_1.get_shape().getGlobalBounds() };
+    const auto &player2_bounds { paddle_player_2.get_shape().getGlobalBounds() };
+
+    if (ball_bounds.findIntersection(player1_bounds)) { ball.revert_x_velocity(); }
+    if (ball_bounds.findIntersection(player2_bounds)) { ball.revert_x_velocity(); }
 }

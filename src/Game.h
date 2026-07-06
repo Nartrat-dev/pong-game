@@ -1,11 +1,10 @@
 #ifndef CMAKESFMLPROJECT_GAME_H
 #define CMAKESFMLPROJECT_GAME_H
 #include "Ball.h"
+#include "config.h"
 #include "Paddle.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/Vector2.hpp"
-
-static constexpr sf::Vector2u WINDOW_SIZE {1920, 1080};
 
 class Game {
 
@@ -29,8 +28,8 @@ public:
      */
     void game_loop();
     void check_player_input();
-    void check_ball_collision();
-
+    void check_wall_collision();
+    void check_paddle_collision();
 
 };
 
