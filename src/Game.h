@@ -16,11 +16,12 @@ public:
      */
     // Window
     sf::RenderWindow window{sf::VideoMode({WINDOW_SIZE}), "PONG"};
+    sf::Vector2f const win_size{sf::Vector2f(WINDOW_SIZE)}; // helper variable for positioning
 
     // Game Objects
-    Paddle paddle_player_1{sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_1};
-    Paddle paddle_player_2{sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_2};
-    Ball ball{sf::Vector2f(WINDOW_SIZE)};
+    Paddle paddle_player_1{win_size, Paddle::Player::PLAYER_1};
+    Paddle paddle_player_2{win_size, Paddle::Player::PLAYER_2};
+    Ball ball{win_size};
 
     /**
      * Constructor

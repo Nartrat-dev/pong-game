@@ -38,7 +38,7 @@ private:
     /**
      * Attributes
      */
-    sf::RectangleShape rect_shape{sf::Vector2f{10.0F, 100.0F}};
+    sf::RectangleShape paddle_shape{sf::Vector2f{10.0F, 100.0F}};
     sf::Vector2f position{0, 0};
     sf::Color color{sf::Color::White};
     Player player;

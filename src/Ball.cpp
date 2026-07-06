@@ -3,8 +3,8 @@
 #include "config.h"
 
 Ball::Ball(const sf::Vector2f &window_size) : position{window_size / 2.0F} {
-    circle_shape.setFillColor(color);
-    circle_shape.setPosition(position);
+    ball_shape.setFillColor(color);
+    ball_shape.setPosition(position);
 }
 
 void Ball::move() {
@@ -13,7 +13,7 @@ void Ball::move() {
 
 void Ball::update_position() {
     move();
-    circle_shape.setPosition(position);
+    ball_shape.setPosition(position);
 }
 
 void Ball::revert_x_velocity() {
@@ -24,8 +24,8 @@ void Ball::revert_y_velocity() {
     velocity.y *= -1.0F;
 }
 
-void Ball::reset_position() {
-    position = sf::Vector2f(WINDOW_SIZE) / 2.0F;
+void Ball::reset_position(const sf::Vector2f &window_size) {
+    position = sf::Vector2f(window_size) / 2.0F;
 }
 
 void Ball::change_y_velocity(const float &value) {
@@ -34,4 +34,4 @@ void Ball::change_y_velocity(const float &value) {
 
 sf::Vector2f Ball::get_velocity() const { return velocity; }
 sf::Vector2f Ball::get_position() const { return position; };
-sf::CircleShape Ball::get_shape() const { return circle_shape; }
+sf::RectangleShape Ball::get_shape() const { return ball_shape; }

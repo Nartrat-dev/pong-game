@@ -58,12 +58,12 @@ void Game::check_wall_collision() {
     const auto &window_size{window.getSize()};
 
     // left and right border collision
-    if (bounds.position.x < 0.F || bounds.position.x + ball.get_shape().getRadius() * 2 > window_size.x) {
-        ball.reset_position();
+    if (bounds.position.x < 0.F || bounds.position.x + ball.get_shape().getSize().x > window_size.x) {
+        ball.reset_position(win_size);
     }
 
     // upper and lower border collision
-    if (bounds.position.y < 0.F || bounds.position.y > window_size.y - ball.get_shape().getRadius() * 2) {
+    if (bounds.position.y < 0.F || bounds.position.y > window_size.y - ball.get_shape().getSize().y) {
         ball.revert_y_velocity();
     }
 }
@@ -91,12 +91,12 @@ void Game::check_paddle_collision(const Paddle &paddle) {
  * -> Collision with low position of the paddle: factor is big and negative
  * -> Collision with middle position of the paddle: factor is (near) zero
  *
- * Lastly, factor is normalized ny dividing with the length of paddle.
+ * Lastly, factor is normalized by dividing by half the length of paddle.
  */
 float Game::get_y_velocity_change_factor(const Paddle &paddle) const {
-    const float ball_y{ball.get_shape().getPosition().y};
-    const float paddle_y{paddle.get_shape().getPosition().y};
-    const float paddle_length_half{paddle.get_shape().getSize().y / 2.0F};
+    const float ball_y{ball.get_shape().getPosition().y}; // position of ball y
+    const float paddle_y{paddle.get_shape().getPosition().y}; // position of paddle y
+    const float paddle_length_half{paddle.get_shape().getSize().y / 2.0F}; // half-length of paddle
     const float factor{(ball_y - paddle_y - paddle_length_half) / paddle_length_half};
     return factor;
 }
