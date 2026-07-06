@@ -1,6 +1,6 @@
 #include "Paddle.h"
 
-Paddle::Paddle(const sf::Vector2f &window_size, const Player &player) : player{player} {
+Paddle::Paddle(const sf::Vector2f &window_size, const Player &player) : player{player}, score{player, window_size} {
     if (player == Player::PLAYER_1) {
         position.x = 10.0F; // Position on left side
         color = sf::Color::Blue;
@@ -27,10 +27,13 @@ sf::Color Paddle::get_color() const {
     return color;
 }
 
-Paddle::Player Paddle::get_player() const {
+Player Paddle::get_player() const {
     return player;
 }
 
+Score Paddle::get_score() const {
+    return score;
+}
 
 void Paddle::move_up() {
     position.y -= 15.0F;
@@ -42,4 +45,8 @@ void Paddle::move_down() {
 
 void Paddle::update_position() {
     paddle_shape.setPosition(position);
+}
+
+void Paddle::draw_paddle(sf::RenderWindow &window) const {
+    window.draw(paddle_shape);
 }

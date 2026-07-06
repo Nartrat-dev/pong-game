@@ -1,14 +1,15 @@
 #ifndef CMAKESFMLPROJECT_PADDLE_H
 #define CMAKESFMLPROJECT_PADDLE_H
+#include "config.h"
+#include "Score.h"
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/Vector2.hpp"
 
 
 class Paddle {
 public:
-    enum class Player { PLAYER_1, PLAYER_2 };
-
     /**
      * Constructor
      */
@@ -25,6 +26,8 @@ public:
 
     Player get_player() const;
 
+    Score get_score() const;
+
     /**
      * Methods
      */
@@ -34,6 +37,8 @@ public:
 
     void update_position();
 
+    void draw_paddle(sf::RenderWindow &window) const;
+
 private:
     /**
      * Attributes
@@ -42,6 +47,7 @@ private:
     sf::Vector2f position{0, 0};
     sf::Color color{sf::Color::White};
     Player player;
+    Score score;
 };
 
 

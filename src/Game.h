@@ -3,6 +3,7 @@
 #include "Ball.h"
 #include "config.h"
 #include "Paddle.h"
+#include "Score.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/Vector2.hpp"
 
@@ -19,8 +20,8 @@ public:
     sf::Vector2f const win_size{sf::Vector2f(WINDOW_SIZE)}; // helper variable for positioning
 
     // Game Objects
-    Paddle paddle_player_1{win_size, Paddle::Player::PLAYER_1};
-    Paddle paddle_player_2{win_size, Paddle::Player::PLAYER_2};
+    Paddle paddle_player_1{win_size, Player::PLAYER_1};
+    Paddle paddle_player_2{win_size, Player::PLAYER_2};
     Ball ball{win_size};
 
     /**
@@ -33,6 +34,9 @@ public:
      */
     // Game Loop
     void game_loop();
+
+    // Draw all shapes and texts
+    void draw();
 
     // Checks player inputs and moves paddles depending on input
     void check_player_input();

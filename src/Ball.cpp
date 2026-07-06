@@ -33,6 +33,10 @@ void Ball::change_y_velocity(const float &value) {
     velocity.y = value;
 }
 
+void Ball::draw_ball(sf::RenderWindow &window) const {
+    window.draw(ball_shape);
+}
+
 sf::Vector2f Ball::get_velocity() const { return velocity; }
 sf::Vector2f Ball::get_position() const { return position; };
 sf::RectangleShape Ball::get_shape() const { return ball_shape; }

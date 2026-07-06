@@ -32,13 +32,19 @@ void Game::game_loop() {
         ball.update_position();
 
         // Draw
-        window.draw(paddle_player_1.get_shape());
-        window.draw(paddle_player_2.get_shape());
-        window.draw(ball.get_shape());
+        draw();
 
         // Update the window
         window.display();
     }
+}
+
+void Game::draw() {
+    paddle_player_1.draw_paddle(window);
+    paddle_player_2.draw_paddle(window);
+    paddle_player_1.get_score().draw_score(window);
+    paddle_player_2.get_score().draw_score(window);
+    ball.draw_ball(window);
 }
 
 // Checks player inputs and moves paddles depending on input
@@ -50,20 +56,30 @@ void Game::check_player_input() {
     // Player 2 movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) { paddle_player_2.move_up(); }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) { paddle_player_2.move_down(); }
+
+    // Check if esc is pressed -> go to pause menu
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+        // todo
+    }
 }
 
 // Checks for wall collision and executes corresponding logic
 void Game::check_wall_collision() {
     const auto &bounds{ball.get_shape().getGlobalBounds()};
-    const auto &window_size{window.getSize()};
 
-    // left and right border collision
-    if (bounds.position.x < 0.F || bounds.position.x + ball.get_shape().getSize().x > window_size.x) {
+    // left border collision -> point for player 2 (right player)
+    if (bounds.position.x < 0.F) {
         ball.reset_position(win_size);
+        paddle_player_2.get_score().score_plus_one();
+    }
+    // right border collision -> point for player 1 (left player)
+    if (bounds.position.x + ball.get_shape().getSize().x > win_size.x) {
+        ball.reset_position(win_size);
+        paddle_player_1.get_score().score_plus_one();
     }
 
     // upper and lower border collision
-    if (bounds.position.y < 0.F || bounds.position.y > window_size.y - ball.get_shape().getSize().y) {
+    if (bounds.position.y < 0.F || bounds.position.y > win_size.y - ball.get_shape().getSize().y) {
         ball.revert_y_velocity();
     }
 }
@@ -83,27 +99,24 @@ void Game::check_paddle_collision(const Paddle &paddle) {
 /**
  * Gets the factor to change the amount of velocity, dependent on the position it collides on the paddle.
  * This is calculated by looking at the height (Y-Position) of both the ball and the paddle.
- *
- * Because position.y of a rectangleShape of SFML is on the top left, it is required to
- * subtract half the length of the paddle and the ball.
- *
+ * Half the length of the ball and the paddle rect are considered into the calculation to make sure
+ * that the factor is dependent on the exact center of the paddle.
  * Lastly, the factor is normalized by dividing by the half-length of the paddle.
  *
- * factor then takes the following values:
- * -> Collision with high position of the paddle: factor is big and positive
- * -> Collision with low position of the paddle: factor is big and negative
- * -> Collision with middle position of the paddle: factor is (near) zero
+ * factor can take the following values:
+ * -> Collision with high position of the paddle: factor is big and positive (~0.1 to 1)
+ * -> Collision with low position of the paddle: factor is big and negative  (~0.1 to -1)
+ * -> Collision with middle position of the paddle: factor is (near) zero  (0)
  *
  *
  */
 float Game::get_y_velocity_change_factor(const Paddle &paddle) const {
-
     const float ball_y{ball.get_shape().getPosition().y}; // position of ball y
     const float paddle_y{paddle.get_shape().getPosition().y}; // position of paddle y
     const float paddle_length_half{paddle.get_shape().getSize().y / 2.0F}; // half-length of paddle
     const float ball_length_half{ball.get_shape().getSize().y / 2.0F}; // half-length of ball
 
-    const float factor{((ball_y - ball_length_half) - paddle_y - paddle_length_half) / paddle_length_half};
+    const float factor{((ball_y + ball_length_half) - paddle_y - paddle_length_half) / paddle_length_half};
 
     return factor;
 }

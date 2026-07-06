@@ -11,4 +11,7 @@ static constexpr unsigned FPS{60};
 // Speed of ball
 static constexpr float BALL_SPEED{7.5F};
 
+// Player
+enum class Player { PLAYER_1, PLAYER_2 };
+
 #endif //CMAKESFMLPROJECT_CONFIG_H

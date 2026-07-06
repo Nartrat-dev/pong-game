@@ -2,6 +2,7 @@
 #define CMAKESFMLPROJECT_BALL_H
 #include "config.h"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/Vector2.hpp"
 
 
@@ -25,6 +26,10 @@ public:
 
     void reset_position(const sf::Vector2f &window_size);
 
+    void change_y_velocity(const float &value);
+
+    void draw_ball(sf::RenderWindow &window) const;
+
     /**
      * Getter
      */
@@ -33,8 +38,6 @@ public:
     sf::Vector2f get_position() const;
 
     sf::RectangleShape get_shape() const;
-
-    void change_y_velocity(const float &value);
 
 private:
     /**
