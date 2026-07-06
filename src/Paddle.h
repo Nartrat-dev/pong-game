@@ -1,6 +1,7 @@
 #ifndef CMAKESFMLPROJECT_PADDLE_H
 #define CMAKESFMLPROJECT_PADDLE_H
 #include "SFML/Graphics/Color.hpp"
+#include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 
 
@@ -13,13 +14,13 @@ public:
     /**
      * Constructor
      */
-    Paddle(sf::Vector2f window_size,  Player player);
+    Paddle(const sf::Vector2f& window_size,  const Player& player);
 
     /**
      * Getter
      */
     sf::Vector2f get_position() const;
-    sf::Vector2f get_size() const;
+    sf::RectangleShape get_shape() const;
     sf::Color get_color() const;
     Player get_player() const;
 
@@ -28,14 +29,15 @@ public:
      */
     void move_up();
     void move_down();
+    void update_position();
 
 
 private:
     /**
      * Attributes
      */
+    sf::RectangleShape rect_shape { sf::Vector2f{10.0F, 100.0F} };
     sf::Vector2f position {0, 0};
-    const sf::Vector2f size {10, 100};
     sf::Color color {sf::Color::White};
     Player player;
 

@@ -1,24 +1,19 @@
 #include <SFML/Graphics.hpp>
 
+#include "Ball.h"
 #include "Paddle.h"
 
 int main() {
 
+	/** Window */
 	constexpr sf::Vector2u WINDOW_SIZE {1920, 1080};
-
 	sf::RenderWindow window( sf::VideoMode( { WINDOW_SIZE } ), "PONG" );
 	window.setFramerateLimit(60);
 
+	/** Game Objects */
 	Paddle paddle_player_1 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_1};
 	Paddle paddle_player_2 {sf::Vector2f(WINDOW_SIZE), Paddle::Player::PLAYER_2};
-
-	sf::RectangleShape rect1 {paddle_player_1.get_size()};
-	rect1.setPosition(paddle_player_1.get_position());
-	rect1.setFillColor(paddle_player_1.get_color());
-
-	sf::RectangleShape rect2 {paddle_player_2.get_size()};
-	rect2.setPosition(paddle_player_2.get_position());
-	rect2.setFillColor(paddle_player_2.get_color());
+	Ball ball { sf::Vector2f(WINDOW_SIZE) };
 
 	// Start Game Loop
 	while ( window.isOpen() ) {
@@ -30,7 +25,7 @@ int main() {
 			if ( event->is<sf::Event::Closed>() ) { window.close(); }
 		}
 
-		// On Key Pressed
+		/** On Key pressed */
 		// Player 1 movement
 		if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) ) { paddle_player_1.move_up(); }
 		if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ) { paddle_player_1.move_down(); }
@@ -43,12 +38,14 @@ int main() {
 		window.clear();
 
 		// Update Positions
-		rect1.setPosition(paddle_player_1.get_position());
-		rect2.setPosition(paddle_player_2.get_position());
+		paddle_player_1.update_position();
+		paddle_player_2.update_position();
+		ball.update_position();
 
 		// Draw
-		window.draw(rect1);
-		window.draw(rect2);
+		window.draw(paddle_player_1.get_shape());
+		window.draw(paddle_player_2.get_shape());
+		window.draw(ball.get_shape());
 
 		// Update the window
 		window.display();
