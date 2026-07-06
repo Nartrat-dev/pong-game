@@ -81,22 +81,29 @@ void Game::check_paddle_collision(const Paddle &paddle) {
 }
 
 /**
- * Gets the factor to change the amount of velocity, dependent on the position it collides on the paddle
- * This is calculated by looking at the height (Y-Position) of both the ball and the paddle
- * and subtracting the length of the paddle:
- * factor = (ball.y - paddle.y) - (paddle.length / 2)
+ * Gets the factor to change the amount of velocity, dependent on the position it collides on the paddle.
+ * This is calculated by looking at the height (Y-Position) of both the ball and the paddle.
+ *
+ * Because position.y of a rectangleShape of SFML is on the top left, it is required to
+ * subtract half the length of the paddle and the ball.
+ *
+ * Lastly, the factor is normalized by dividing by the half-length of the paddle.
  *
  * factor then takes the following values:
  * -> Collision with high position of the paddle: factor is big and positive
  * -> Collision with low position of the paddle: factor is big and negative
  * -> Collision with middle position of the paddle: factor is (near) zero
  *
- * Lastly, factor is normalized by dividing by half the length of paddle.
+ *
  */
 float Game::get_y_velocity_change_factor(const Paddle &paddle) const {
+
     const float ball_y{ball.get_shape().getPosition().y}; // position of ball y
     const float paddle_y{paddle.get_shape().getPosition().y}; // position of paddle y
     const float paddle_length_half{paddle.get_shape().getSize().y / 2.0F}; // half-length of paddle
-    const float factor{(ball_y - paddle_y - paddle_length_half) / paddle_length_half};
+    const float ball_length_half{ball.get_shape().getSize().y / 2.0F}; // half-length of ball
+
+    const float factor{((ball_y - ball_length_half) - paddle_y - paddle_length_half) / paddle_length_half};
+
     return factor;
 }

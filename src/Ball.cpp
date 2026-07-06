@@ -26,6 +26,7 @@ void Ball::revert_y_velocity() {
 
 void Ball::reset_position(const sf::Vector2f &window_size) {
     position = sf::Vector2f(window_size) / 2.0F;
+    velocity = sf::Vector2f(BALL_SPEED, 0.0F);
 }
 
 void Ball::change_y_velocity(const float &value) {

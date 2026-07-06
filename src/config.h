@@ -9,6 +9,6 @@ static constexpr sf::Vector2u WINDOW_SIZE{1920, 1080};
 static constexpr unsigned FPS{60};
 
 // Speed of ball
-static constexpr float BALL_SPEED{5.0F};
+static constexpr float BALL_SPEED{7.5F};
 
 #endif //CMAKESFMLPROJECT_CONFIG_H
