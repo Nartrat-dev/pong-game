@@ -28,6 +28,9 @@ void Ball::reset_position() {
     position = sf::Vector2f(WINDOW_SIZE) / 2.0F;
 }
 
+void Ball::change_y_velocity(const float &value) {
+    velocity.y = value;
+}
 
 sf::Vector2f Ball::get_velocity() const { return velocity; }
 sf::Vector2f Ball::get_position() const { return position; };

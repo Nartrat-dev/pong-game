@@ -33,11 +33,11 @@ Paddle::Player Paddle::get_player() const {
 
 
 void Paddle::move_up() {
-    position.y -= 20.0F;
+    position.y -= 15.0F;
 }
 
 void Paddle::move_down() {
-    position.y += 20.0F;
+    position.y += 15.0F;
 }
 
 void Paddle::update_position() {
