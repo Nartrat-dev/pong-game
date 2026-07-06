@@ -16,6 +16,8 @@ public:
      */
     void move();
     void update_position();
+    void change_x_direction();
+    void change_y_direction();
 
     /**
      * Getter
@@ -29,7 +31,7 @@ private:
     /**
      * Attributes
      */
-    sf::Vector2f velocity {0.0F, 0.0F};
+    sf::Vector2f velocity {5.0F, 5.0F};
     sf::Vector2f position;
     sf::CircleShape circle_shape { 25.0F };
     sf::Color color {sf::Color::White};

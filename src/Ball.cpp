@@ -10,8 +10,17 @@ void Ball::move() {
 }
 
 void Ball::update_position() {
+    move();
     circle_shape.setPosition(position);
 }
+
+void Ball::change_x_direction() {
+    velocity.x *= -1.0F;
+}
+void Ball::change_y_direction() {
+    velocity.y *= -1.0F;
+}
+
 
 sf::Vector2f Ball::get_velocity() const { return velocity; }
 sf::Vector2f Ball::get_position() const { return position; };
