@@ -21,9 +21,9 @@ void Game::game_loop() {
         check_player_input();
 
         // Check collisions
-        check_wall_collision();
         check_paddle_collision(paddle_player_1);
         check_paddle_collision(paddle_player_2);
+        check_wall_collision();
 
         // Clear Screen
         window.clear();

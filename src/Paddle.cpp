@@ -2,11 +2,11 @@
 
 Paddle::Paddle(const sf::Vector2f &window_size, const Player &player) : player{player}, score{player, window_size} {
     if (player == Player::PLAYER_1) {
-        position.x = 10.0F; // Position on left side
+        position.x = 0.0F; // Position on left side
         color = sf::Color::Blue;
     }
     if (player == Player::PLAYER_2) {
-        position.x = window_size.x - 20.0F; // Position on right side
+        position.x = window_size.x - paddle_shape.getSize().x; // Position on right side
         color = sf::Color::Green;
     }
     position.y = (window_size.y / 2) - (paddle_shape.getSize().y / 2); // y Starting position: vertical center
@@ -36,10 +36,13 @@ Score& Paddle::get_score() {
 }
 
 void Paddle::move_up() {
-    position.y -= 15.0F;
+    if (position.y > 0) {
+        position.y -= 15.0F;
+    }
 }
 
 void Paddle::move_down() {
+    if (position.y < WINDOW_SIZE.y - paddle_shape.getSize().y)
     position.y += 15.0F;
 }
 
