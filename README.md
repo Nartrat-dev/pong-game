@@ -26,4 +26,4 @@ This repository features the classical game "Pong". It is a "tennis like" game w
 ## License
 
 The source code is my own work but based on the SFML Template from https://github.com/SFML/cmake-sfml-project.git.
-To view the license from the linked repository, see:[LICENSE.md](LICENSE.md).
+To view the license from the linked repository, see: [LICENSE.md](LICENSE.md).
