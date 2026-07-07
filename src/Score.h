@@ -12,8 +12,8 @@
 class Score {
 
     unsigned int score{0};
-    sf::Font font{"../resources/Arial.ttf"};
-    sf::Text score_display{sf::Text(font)};
+    //sf::Font font{"../resources/Arial.ttf"};
+    sf::Text score_display{sf::Text(FONT)};
     sf::Vector2f score_position;
 
 public:
@@ -24,6 +24,8 @@ public:
     void score_plus_one();
 
     void draw_score(sf::RenderWindow &window) const;
+
+    unsigned& score_number();
 };
 
 

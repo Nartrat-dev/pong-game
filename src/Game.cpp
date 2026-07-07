@@ -17,24 +17,31 @@ void Game::game_loop() {
             if (event->is<sf::Event::Closed>()) { window.close(); }
         }
 
-        // Check inputs
-        check_player_input();
+        if (playing) {
+            // Check inputs
+            check_player_input();
 
-        // Check collisions
-        check_paddle_collision(paddle_player_1);
-        check_paddle_collision(paddle_player_2);
-        check_wall_collision();
+            // Check collisions
+            check_paddle_collision(paddle_player_1);
+            check_paddle_collision(paddle_player_2);
+            check_wall_collision();
 
-        // Clear Screen
-        window.clear();
+            // Update Positions
+            paddle_player_1.update_position();
+            paddle_player_2.update_position();
+            ball.update_position();
 
-        // Update Positions
-        paddle_player_1.update_position();
-        paddle_player_2.update_position();
-        ball.update_position();
+            // Clear Screen
+            window.clear();
 
-        // Draw
-        draw();
+            // Draw
+            draw();
+        } else if (is_won) {
+            window.clear();
+            window.draw(winning_text);
+
+        }
+
 
         // Update the window
         window.display();
@@ -58,11 +65,6 @@ void Game::check_player_input() {
     // Player 2 movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) { paddle_player_2.move_up(); }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) { paddle_player_2.move_down(); }
-
-    // Check if esc is pressed -> go to pause menu
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-        // todo
-    }
 }
 
 // Checks for wall collision and executes corresponding logic
@@ -73,11 +75,13 @@ void Game::check_wall_collision() {
     if (bounds.position.x < 0.F) {
         ball.reset_position(win_size);
         paddle_player_2.get_score().score_plus_one();
+        check_player_win(); // check if point leads to win
     }
     // right border collision -> point for player 1 (left player)
     if (bounds.position.x + ball.get_shape().getSize().x > win_size.x) {
         ball.reset_position(win_size);
         paddle_player_1.get_score().score_plus_one();
+        check_player_win(); // check if point leads to win
     }
 
     // upper and lower border collision
@@ -95,6 +99,24 @@ void Game::check_paddle_collision(const Paddle &paddle) {
         ball.revert_x_velocity();
         const float y_velocity_new{BALL_SPEED * get_y_velocity_change_factor(paddle)};
         ball.change_y_velocity(y_velocity_new);
+    }
+}
+
+// Check if one player won
+void Game::check_player_win() {
+    if (paddle_player_1.get_score().score_number() >= 10U) {
+        winning_text.setString("Player 1 wins!");
+        winning_text.setFillColor(sf::Color::White);
+        winning_text.setPosition(sf::Vector2f(win_size / 2.0F));
+        playing = false;
+        is_won = true;
+    }
+    if (paddle_player_2.get_score().score_number() >= 10U) {
+        winning_text.setString("Player 2 wins!");
+        winning_text.setFillColor(sf::Color::White);
+        winning_text.setPosition(sf::Vector2f(win_size / 2.0F));
+        playing = false;
+        is_won = true;
     }
 }
 

@@ -24,6 +24,9 @@ public:
     Paddle paddle_player_2{win_size, Player::PLAYER_2};
     Ball ball{win_size};
 
+    bool playing {true};
+    bool is_won{false};
+    sf::Text winning_text {FONT, "Winner is: ", 40U};
     /**
      * Constructor
      */
@@ -46,6 +49,9 @@ public:
 
     // Checks collision with a player paddle and reverts direction on hit
     void check_paddle_collision(const Paddle &paddle);
+
+    // Check if one player won
+    void check_player_win();
 
     // Get a factor for the velocity update of y for the ball when hitting the paddle,
     // depending on position of the paddle

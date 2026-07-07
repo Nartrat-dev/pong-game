@@ -26,3 +26,7 @@ void Score::score_plus_one() {
 void Score::draw_score(sf::RenderWindow &window) const {
     window.draw(score_display);
 }
+
+unsigned& Score::score_number() {
+    return score;
+}
