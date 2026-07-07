@@ -26,7 +26,7 @@ public:
 
     Player get_player() const;
 
-    Score& get_score();
+    Score &get_score();
 
     /**
      * Methods
@@ -36,6 +36,8 @@ public:
     void move_down();
 
     void update_position();
+
+    void set_starting_position(const sf::Vector2f &window_size);
 
     void draw_paddle(sf::RenderWindow &window) const;
 

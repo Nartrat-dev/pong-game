@@ -35,25 +35,23 @@ void Game::game_loop() {
             window.clear();
 
             // Draw
-            draw();
+            paddle_player_1.draw_paddle(window);
+            paddle_player_2.draw_paddle(window);
+            paddle_player_1.get_score().draw_score(window);
+            paddle_player_2.get_score().draw_score(window);
+            ball.draw_ball(window);
         } else if (is_won) {
             window.clear();
             window.draw(winning_text);
-
+            paddle_player_1.get_score().draw_score(window);
+            paddle_player_2.get_score().draw_score(window);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) { restart_game(); }
         }
 
 
         // Update the window
         window.display();
     }
-}
-
-void Game::draw() {
-    paddle_player_1.draw_paddle(window);
-    paddle_player_2.draw_paddle(window);
-    paddle_player_1.get_score().draw_score(window);
-    paddle_player_2.get_score().draw_score(window);
-    ball.draw_ball(window);
 }
 
 // Checks player inputs and moves paddles depending on input
@@ -73,13 +71,13 @@ void Game::check_wall_collision() {
 
     // left border collision -> point for player 2 (right player)
     if (bounds.position.x < 0.F) {
-        ball.reset_position(win_size);
+        ball.reset_position(win_size, paddle_player_2.get_player());
         paddle_player_2.get_score().score_plus_one();
         check_player_win(); // check if point leads to win
     }
     // right border collision -> point for player 1 (left player)
     if (bounds.position.x + ball.get_shape().getSize().x > win_size.x) {
-        ball.reset_position(win_size);
+        ball.reset_position(win_size, paddle_player_1.get_player());
         paddle_player_1.get_score().score_plus_one();
         check_player_win(); // check if point leads to win
     }
@@ -105,19 +103,28 @@ void Game::check_paddle_collision(const Paddle &paddle) {
 // Check if one player won
 void Game::check_player_win() {
     if (paddle_player_1.get_score().score_number() >= 10U) {
-        winning_text.setString("Player 1 wins!");
+        winning_text.setString("Player 1 wins! Press 'Space' to restart");
         winning_text.setFillColor(sf::Color::White);
         winning_text.setPosition(sf::Vector2f(win_size / 2.0F));
         playing = false;
         is_won = true;
     }
     if (paddle_player_2.get_score().score_number() >= 10U) {
-        winning_text.setString("Player 2 wins!");
+        winning_text.setString("Player 2 wins! Press 'Space' to restart");
         winning_text.setFillColor(sf::Color::White);
         winning_text.setPosition(sf::Vector2f(win_size / 2.0F));
         playing = false;
         is_won = true;
     }
+}
+
+void Game::restart_game() {
+    paddle_player_1.get_score().set_score(0U);
+    paddle_player_2.get_score().set_score(0U);
+    paddle_player_1.set_starting_position(win_size);
+    paddle_player_2.set_starting_position(win_size);
+    playing = true;
+    is_won = false;
 }
 
 /**

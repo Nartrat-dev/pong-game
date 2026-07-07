@@ -27,6 +27,11 @@ void Score::draw_score(sf::RenderWindow &window) const {
     window.draw(score_display);
 }
 
-unsigned& Score::score_number() {
+unsigned int &Score::score_number() {
     return score;
+}
+
+void Score::set_score(const unsigned &value) {
+    score = value;
+    score_display.setString(std::to_string(score));
 }

@@ -1,17 +1,7 @@
 #include "Paddle.h"
 
 Paddle::Paddle(const sf::Vector2f &window_size, const Player &player) : player{player}, score{player, window_size} {
-    if (player == Player::PLAYER_1) {
-        position.x = 0.0F; // Position on left side
-        color = sf::Color::Blue;
-    }
-    if (player == Player::PLAYER_2) {
-        position.x = window_size.x - paddle_shape.getSize().x; // Position on right side
-        color = sf::Color::Green;
-    }
-    position.y = (window_size.y / 2) - (paddle_shape.getSize().y / 2); // y Starting position: vertical center
-
-    paddle_shape.setPosition(position);
+    set_starting_position(window_size);
     paddle_shape.setFillColor(color);
 };
 
@@ -31,7 +21,7 @@ Player Paddle::get_player() const {
     return player;
 }
 
-Score& Paddle::get_score() {
+Score &Paddle::get_score() {
     return score;
 }
 
@@ -43,10 +33,24 @@ void Paddle::move_up() {
 
 void Paddle::move_down() {
     if (position.y < WINDOW_SIZE.y - paddle_shape.getSize().y)
-    position.y += 15.0F;
+        position.y += 15.0F;
 }
 
 void Paddle::update_position() {
+    paddle_shape.setPosition(position);
+}
+
+void Paddle::set_starting_position(const sf::Vector2f &window_size) {
+    if (player == Player::PLAYER_1) {
+        position.x = 0.0F; // Position on left side
+        color = sf::Color::Blue;
+    }
+    if (player == Player::PLAYER_2) {
+        position.x = window_size.x - paddle_shape.getSize().x; // Position on right side
+        color = sf::Color::Green;
+    }
+    position.y = (window_size.y / 2) - (paddle_shape.getSize().y / 2); // y Starting position: vertical center
+
     paddle_shape.setPosition(position);
 }
 

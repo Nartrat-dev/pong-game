@@ -24,9 +24,16 @@ void Ball::revert_y_velocity() {
     velocity.y *= -1.0F;
 }
 
-void Ball::reset_position(const sf::Vector2f &window_size) {
+void Ball::reset_position(const sf::Vector2f &window_size, const Player &player_direction) {
+    float direction{1.0F};
+
+    // Change direction to the left (to player 1)
+    if (player_direction == Player::PLAYER_1) {
+        direction = -1.0F;
+    }
+
     position = sf::Vector2f(window_size) / 2.0F;
-    velocity = sf::Vector2f(BALL_SPEED, 0.0F);
+    velocity = sf::Vector2f(direction * BALL_SPEED, 0.0F);
 }
 
 void Ball::change_y_velocity(const float &value) {

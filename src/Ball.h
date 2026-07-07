@@ -24,7 +24,7 @@ public:
 
     void revert_y_velocity();
 
-    void reset_position(const sf::Vector2f &window_size);
+    void reset_position(const sf::Vector2f &window_size, const Player &player_direction);
 
     void change_y_velocity(const float &value);
 

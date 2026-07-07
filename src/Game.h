@@ -24,9 +24,9 @@ public:
     Paddle paddle_player_2{win_size, Player::PLAYER_2};
     Ball ball{win_size};
 
-    bool playing {true};
+    bool playing{true};
     bool is_won{false};
-    sf::Text winning_text {FONT, "Winner is: ", 40U};
+    sf::Text winning_text{FONT, "Winner is: ", 40U};
     /**
      * Constructor
      */
@@ -37,9 +37,6 @@ public:
      */
     // Game Loop
     void game_loop();
-
-    // Draw all shapes and texts
-    void draw();
 
     // Checks player inputs and moves paddles depending on input
     void check_player_input();
@@ -52,6 +49,9 @@ public:
 
     // Check if one player won
     void check_player_win();
+
+    // Restart game after win
+    void restart_game();
 
     // Get a factor for the velocity update of y for the ball when hitting the paddle,
     // depending on position of the paddle
