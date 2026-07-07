@@ -16,6 +16,6 @@ static constexpr float BALL_SPEED{7.5F};
 enum class Player { PLAYER_1, PLAYER_2 };
 
 // Font
-static sf::Font FONT{"../resources/Arial.ttf"};
+static sf::Font FONT{"./resources/Arial.ttf"};
 
 #endif //CMAKESFMLPROJECT_CONFIG_H
