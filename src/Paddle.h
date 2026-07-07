@@ -26,7 +26,7 @@ public:
 
     Player get_player() const;
 
-    Score get_score() const;
+    Score& get_score();
 
     /**
      * Methods

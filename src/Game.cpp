@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <iostream>
+
 // Makes an instant of the game, sets frame limit
 Game::Game() {
     window.setFramerateLimit(FPS);

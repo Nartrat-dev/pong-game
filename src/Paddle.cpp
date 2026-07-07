@@ -31,7 +31,7 @@ Player Paddle::get_player() const {
     return player;
 }
 
-Score Paddle::get_score() const {
+Score& Paddle::get_score() {
     return score;
 }
 
