@@ -5,7 +5,7 @@ This repository features the classical game "Pong". It is a "tennis like" game w
 ## The Game
 
 - The goal: winning by being the first one to gain a score of 10
-- How to score: the ball flies into to the side of the opponent without his paddle defending the ball
+- How to score: the ball flies to the side of the opponent without his paddle defending the ball
 - More info about Pong: https://www.ponggame.org/
 
 ## Controls
