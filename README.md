@@ -1,6 +1,7 @@
 # PONG
 
 This repository features the classical game "Pong". It is a "tennis like" game which features two paddles and a ball.
+For this project C++ was used with the SFML library.
 
 ## The Game
 
